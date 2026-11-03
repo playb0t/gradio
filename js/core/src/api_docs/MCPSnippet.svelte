@@ -304,8 +304,7 @@
 		</Block>
 	</div>
 	<div class:hidden={current_transport !== "stdio"}>
-		<strong>STDIO Transport</strong>: For clients that only support stdio (e.g.
-		Claude Desktop), first
+		<strong>STDIO Transport</strong>: For clients that only support stdio, first
 		<a href="https://nodejs.org/en/download/" target="_blank">install Node.js</a
 		>. Then, you can use the following command:
 		<p>&nbsp;</p>

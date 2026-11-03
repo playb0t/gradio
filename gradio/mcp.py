@@ -256,8 +256,8 @@ _MCP_LANDING_PAGE_TEMPLATE = """<!DOCTYPE html>
     {
       id: "claude-desktop",
       name: "Claude Desktop",
-      instruction: 'Add this to your <code>claude_desktop_config.json</code> (requires Node.js):',
-      config: { mcpServers: { gradio: { command: "npx", args: ["mcp-remote", SERVER_URL] } } },
+      instruction: 'For a publicly reachable HTTPS server, open <strong>Customize &gt; Connectors &gt; Add custom connector</strong> and paste this URL. On Team and Enterprise plans, an owner adds it in Organization settings &gt; Connectors. Use the STDIO tab for local-only servers or when the required connector settings are unavailable.',
+      command: SERVER_URL,
     },
     {
       id: "claude-code",
@@ -282,6 +282,12 @@ _MCP_LANDING_PAGE_TEMPLATE = """<!DOCTYPE html>
       name: "Windsurf",
       instruction: 'Add this to your <code>~/.codeium/windsurf/mcp_config.json</code>:',
       config: { mcpServers: { gradio: { serverUrl: SERVER_URL } } },
+    },
+    {
+      id: "stdio",
+      name: "STDIO",
+      instruction: 'For stdio-only clients, local-only servers, or required headers unavailable in Connectors, add this to your MCP client config (requires Node.js). Add any required <code>--header</code> arguments:',
+      config: { mcpServers: { gradio: { command: "npx", args: ["mcp-remote@0.16.0", SERVER_URL, "--transport", "http-only"] } } },
     },
   ];
 

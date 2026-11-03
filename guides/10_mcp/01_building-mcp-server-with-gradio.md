@@ -409,7 +409,9 @@ def prime_factors(n: str):
 
 **3. Ensure that your MCP Client Supports Streamable HTTP**
 
-Some MCP Clients do not yet support streamable HTTP-based MCP Servers. In those cases, you can use a tool such as [mcp-remote](https://github.com/geelen/mcp-remote). First install [Node.js](https://nodejs.org/en/download/). Then, add the following to your own MCP Client config:
+If your MCP client supports Streamable HTTP, connect directly using your server URL. For Claude Desktop, add a publicly reachable HTTPS server in Customize > Connectors > Add custom connector. On Team and Enterprise plans, an owner adds the connector in Organization settings > Connectors. See [Claude's custom connector instructions](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) for details.
+
+For clients that only support stdio, or local-only servers that Claude's remote connector cannot reach, use [mcp-remote](https://github.com/punkpeye/mcp-remote). First install [Node.js](https://nodejs.org/en/download/). Then, add the following pinned configuration to your MCP client config:
 
 ```
 {
@@ -417,8 +419,10 @@ Some MCP Clients do not yet support streamable HTTP-based MCP Servers. In those 
     "gradio": {
       "command": "npx",
       "args": [
-        "mcp-remote",
-        "http://your-server:port/gradio_api/mcp/"
+        "mcp-remote@0.16.0",
+        "http://your-server:port/gradio_api/mcp/",
+        "--transport",
+        "http-only"
       ]
     }
   }

@@ -54,25 +54,40 @@ We've included step-by-step instructions for Cursor below, but you can consult t
 
 ### Claude Desktop
 
-1. Since Claude Desktop only supports stdio, you will need to [install Node.js](https://nodejs.org/en/download/) to get this to work. 
-2. Make sure you're using the latest version of Claude Desktop, and go to Claude > Settings > Developer > Edit Config 
-3. Open the file with your favorite editor and copy paste this json, then save the file. 
+1. Open Customize > Connectors > Add custom connector. On Team and Enterprise plans, an owner adds the connector in Organization settings > Connectors first.
+2. Enter a name and the server URL: `https://gradio-docs-mcp.hf.space/gradio_api/mcp/`.
+3. Follow the prompts to add the connector, then enable it for your conversation from the Connectors menu.
+
+Custom connectors are available on all plans; Free allows one custom connector. See [Claude's custom connector instructions](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp) for the current steps.
+
+Remote connectors need a server reachable from Claude, rather than a localhost URL. For servers requiring fixed credentials such as API keys, configure Request headers when the required header settings are available. If your required headers cannot be configured, use the local stdio fallback below.
+
+<details>
+<summary>Local or stdio-only fallback</summary>
+
+Install [Node.js](https://nodejs.org/en/download/), then open Claude Desktop's Settings > Developer > Edit Config and add this pinned configuration:
+
 ```json
 {
   "mcpServers": {
     "gradio": {
       "command": "npx",
       "args": [
-        "mcp-remote",
-        "https://gradio-docs-mcp.hf.space/gradio_api/mcp/"
+        "mcp-remote@0.16.0",
+        "https://gradio-docs-mcp.hf.space/gradio_api/mcp/",
+        "--transport",
+        "http-only"
       ]
     }
   }
 }
 ```
-4. Quit and re-open Claude Desktop, and you should be good to go. You should see it loaded in the Search and Tools icon or on the developer settings page. 
- 
+
+For a local server, replace the URL with its MCP endpoint. Add any required `--header` arguments to the bridge configuration. Quit and reopen Claude Desktop after saving.
+
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gradio-guides/claude-desktop-mcp.gif)
+
+</details>
 
 ## Tools 
 

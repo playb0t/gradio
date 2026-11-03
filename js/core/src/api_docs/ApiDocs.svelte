@@ -259,10 +259,10 @@
 						gradio: {
 							command: "npx",
 							args: [
-								"mcp-remote",
+								"mcp-remote@0.16.0",
 								mcp_server_url_streamable,
 								"--transport",
-								"streamable-http",
+								"http-only",
 								...headers
 									.map((header) => [
 										"--header",
@@ -279,10 +279,10 @@
 						gradio: {
 							command: "npx",
 							args: [
-								"mcp-remote",
+								"mcp-remote@0.16.0",
 								mcp_server_url_streamable,
 								"--transport",
-								"streamable-http"
+								"http-only"
 							]
 						}
 					}

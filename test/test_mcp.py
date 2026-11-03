@@ -500,3 +500,22 @@ async def test_mcp_browser_get_returns_landing_page():
     # connection snippets for common MCP clients.
     assert b"example.com/gradio_api/mcp/" in body
     assert b"Connect your AI assistant" in body
+
+
+def test_mcp_landing_claude_desktop_uses_remote_connector() -> None:
+    page = GradioMCPServer._landing_page_html("https://example.com/gradio_api/mcp/")
+    desktop = page.split('id: "claude-desktop"', 1)[1].split('id: "claude-code"', 1)[0]
+    assert "Connectors" in desktop
+    assert "Customize" in desktop
+    assert "command: SERVER_URL" in desktop
+    assert "mcp-remote" not in desktop
+    assert "reachable" in desktop
+
+
+def test_mcp_landing_keeps_pinned_stdio_fallback() -> None:
+    page = GradioMCPServer._landing_page_html("https://example.com/gradio_api/mcp/")
+    assert 'id: "stdio"' in page
+    assert '"mcp-remote@0.16.0"' in page
+    assert '"--transport", "http-only"' in page
+    assert '"streamable-http"' not in page
+    assert '"mcp-remote"' not in page
